@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
@@ -120,6 +120,34 @@
             margin-top: 4rem;
         }
 
+        /* Added popup styles */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+            z-index: 1000;
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+        }
+
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+        }
+
         @media (max-width: 768px) {
             h1 {
                 font-size: 2rem;
@@ -173,14 +201,20 @@
                 <label for="phone">رقم الجوال</label>
                 <input type="tel" id="phone" name="phone" required pattern="05[0-9]{8}" placeholder="05xxxxxxxx">
 
-
                 <button type="submit">اشترك الآن</button>
             </form>
-            <p id="success-message" class="success-message">تم التسجيل بنجاح! انضم إلى مجموعة الواتساب الخاصة بنا</p>
-            <a href="https://chat.whatsapp.com/D4EYbGERY5q0mbP8ZacPwt" target="_blank" id="whatsapp-link" class="whatsapp-button button">
-                انضم إلى مجموعة الواتساب
-            </a>
         </section>
+    </div>
+
+    <!-- Added popup elements -->
+    <div id="popupOverlay" class="popup-overlay"></div>
+    <div id="popup" class="popup">
+        <h3>تم التسجيل بنجاح! 🎉</h3>
+        <p>انضم إلى مجموعة الواتساب الخاصة بنا للبدء في رحلة احتراف البلوت</p>
+        <button onclick="window.open('https://chat.whatsapp.com/D4EYbGERY5q0mbP8ZacPwt', '_blank')" class="whatsapp-btn">
+            انضم للمجموعة
+        </button>
+        <button onclick="closePopup()">إغلاق</button>
     </div>
 
     <footer>
@@ -190,6 +224,16 @@
     </footer>
 
     <script>
+        function showPopup() {
+            document.getElementById('popup').style.display = 'block';
+            document.getElementById('popupOverlay').style.display = 'block';
+        }
+
+        function closePopup() {
+            document.getElementById('popup').style.display = 'none';
+            document.getElementById('popupOverlay').style.display = 'none';
+        }
+
         function submitToGoogleSheet(event) {
             event.preventDefault();
             const scriptURL = 'https://script.google.com/macros/s/AKfycby5t6VaIkzBHbj9v9bA_Ga-cj8ZEqUdh9whXMAIuZy3DP4dIOK00atFNrF2PAwyJ_wl6Q/exec';
@@ -198,16 +242,12 @@
             
             fetch(scriptURL, { method: 'POST', body: formData })
                 .then(response => {
-                    document.getElementById('success-message').style.display = 'block';
-                    document.getElementById('whatsapp-link').style.display = 'block';
                     form.reset();
+                    showPopup();
                 })
                 .catch(error => alert('حدث خطأ، حاول مرة أخرى'));
         }
     </script>
 </body>
 </html>
-
-i want after someone sgin up this link appers so he can join the whatsapp groub of the game
-https://chat.whatsapp.com/D4EYbGERY5q0mbP8ZacPwt
 
