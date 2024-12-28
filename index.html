@@ -5,7 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>بلوت ماستر - احترف لعبة البلوت</title>
     <style>
-        /* ... Previous styles remain the same ... */
+        /* ... (previous styles remain the same) ... */
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+            z-index: 1000;
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+        }
 
         .popup-overlay {
             display: none;
@@ -14,107 +30,48 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
         }
 
-        .popup {
-            background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            text-align: center;
-            max-width: 90%;
-            width: 400px;
-            position: relative;
-            animation: popupFadeIn 0.3s ease;
+        .popup button {
+            margin-top: 1rem;
+            width: 100%;
         }
 
-        @keyframes popupFadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .popup h3 {
-            color: #006c35;
-            margin-bottom: 1rem;
-        }
-
-        .popup p {
-            margin-bottom: 1.5rem;
-        }
-
-        .popup-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .whatsapp-button {
+        .whatsapp-btn {
             background-color: #25D366;
-            color: white;
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: 5px;
-            font-size: 1.1rem;
-            cursor: pointer;
-            text-decoration: none;
-            display: block;
-            text-align: center;
+            margin-top: 1rem;
         }
 
-        .whatsapp-button:hover {
+        .whatsapp-btn:hover {
             background-color: #128C7E;
         }
-
-        .close-button {
-            background-color: #6c757d;
-            color: white;
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: 5px;
-            font-size: 1.1rem;
-            cursor: pointer;
-        }
-
-        .close-button:hover {
-            background-color: #5a6268;
-        }
-
-        /* ... Rest of the previous styles remain the same ... */
     </style>
 </head>
 <body>
-    <!-- ... Previous HTML content remains the same until before the script tag ... -->
+    <!-- ... (previous HTML content remains the same until the popup) ... -->
 
-    <!-- Add this before closing body tag -->
-    <div class="popup-overlay" id="popup-overlay">
-        <div class="popup">
-            <h3>تم التسجيل بنجاح! 🎉</h3>
-            <p>شكراً لتسجيلك في بلوت ماستر. انضم الآن إلى مجموعة الواتساب لتبدأ رحلتك معنا!</p>
-            <div class="popup-buttons">
-                <a href="https://chat.whatsapp.com/D4EYbGERY5q0mbP8ZacPwt" target="_blank" class="whatsapp-button">
-                    انضم إلى مجموعة الواتساب
-                </a>
-                <button class="close-button" onclick="closePopup()">إغلاق</button>
-            </div>
-        </div>
+    <!-- Add popup elements -->
+    <div id="popupOverlay" class="popup-overlay"></div>
+    <div id="popup" class="popup">
+        <h3>تم التسجيل بنجاح! 🎉</h3>
+        <p>انضم إلى مجموعة الواتساب الخاصة بنا للبدء في رحلة احتراف البلوت</p>
+        <button onclick="window.open('https://chat.whatsapp.com/D4EYbGERY5q0mbP8ZacPwt', '_blank')" class="whatsapp-btn">
+            انضم للمجموعة
+        </button>
+        <button onclick="closePopup()">إغلاق</button>
     </div>
 
     <script>
         function showPopup() {
-            document.getElementById('popup-overlay').style.display = 'flex';
+            document.getElementById('popup').style.display = 'block';
+            document.getElementById('popupOverlay').style.display = 'block';
         }
 
         function closePopup() {
-            document.getElementById('popup-overlay').style.display = 'none';
+            document.getElementById('popup').style.display = 'none';
+            document.getElementById('popupOverlay').style.display = 'none';
         }
 
         function submitToGoogleSheet(event) {
