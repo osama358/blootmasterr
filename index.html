@@ -50,24 +50,24 @@
             text-align: right;
         }
 
-            #features ul {
-                list-style: none;
-                margin: 2rem 0;
-            }
+        #features ul {
+            list-style: none;
+            margin: 2rem 0;
+        }
 
-            #features li {
-                margin: 1rem 0;
-                padding-right: 2rem;
-                position: relative;
-            }
+        #features li {
+            margin: 1rem 0;
+            padding-right: 2rem;
+            position: relative;
+        }
 
-                #features li:before {
-                    content: "✓";
-                    color: #006c35;
-                    position: absolute;
-                    right: 0;
-                    font-weight: bold;
-                }
+        #features li:before {
+            content: "✓";
+            color: #006c35;
+            position: absolute;
+            right: 0;
+            font-weight: bold;
+        }
 
         form {
             display: flex;
@@ -91,10 +91,10 @@
             transition: border-color 0.3s ease;
         }
 
-            input:focus {
-                outline: none;
-                border-color: #006c35;
-            }
+        input:focus {
+            outline: none;
+            border-color: #006c35;
+        }
 
         button {
             background-color: #006c35;
@@ -107,10 +107,29 @@
             transition: background-color 0.3s ease;
         }
 
-            button:hover {
-                background-color: #004d25;
-            }
+        button:hover {
+            background-color: #004d25;
+        }
 
+        .whatsapp-button {
+            background-color: #25D366;
+            display: none;
+            text-decoration: none;
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .whatsapp-button:hover {
+            background-color: #128C7E;
+        }
+
+        .success-message {
+            display: none;
+            text-align: center;
+            color: #006c35;
+            margin-top: 1rem;
+            font-weight: bold;
+        }
 
         footer {
             text-align: center;
@@ -136,7 +155,8 @@
     </style>
 </head>
 <body>
-    <div class="container">
+    <header>
+        <div class="container">
             <h1>احترف البلوت مع بلوت ماستر</h1>
             <p>تعلم فن البلوت واصبح محترف في كل صكة!</p>
             <button onclick="document.getElementById('signup-form').scrollIntoView({ behavior: 'smooth' })">سجل الآن مجانًا</button>
@@ -163,7 +183,6 @@
             </ul>
         </section>
 
-    <div class="container">
         <section id="signup">
             <h2>سجل الآن واحصل على شهر مجانًا عند اطلاق البرنامج!</h2>
             <form id="signup-form" onsubmit="submitToGoogleSheet(event)">
@@ -175,6 +194,10 @@
 
                 <button type="submit">اشترك الآن</button>
             </form>
+            <p id="success-message" class="success-message">تم التسجيل بنجاح! انضم إلى مجموعة الواتساب الخاصة بنا</p>
+            <a href="https://chat.whatsapp.com/D4EYbGERY5q0mbP8ZacPwt" target="_blank" id="whatsapp-link" class="whatsapp-button button">
+                انضم إلى مجموعة الواتساب
+            </a>
         </section>
     </div>
 
@@ -190,10 +213,12 @@
             const scriptURL = 'https://script.google.com/macros/s/AKfycby5t6VaIkzBHbj9v9bA_Ga-cj8ZEqUdh9whXMAIuZy3DP4dIOK00atFNrF2PAwyJ_wl6Q/exec';
             const form = document.getElementById('signup-form');
             const formData = new FormData(form);
+            
             fetch(scriptURL, { method: 'POST', body: formData })
                 .then(response => {
-                    alert('تم التسجيل بنجاح انضم إلى مجموعتنا على واتساب للحصول على آخر التحديثات أولاً بأول');
-                    window.location.href = 'https://chat.whatsapp.com/D4EYbGERY5q0mbP8ZacPwt';
+                    document.getElementById('success-message').style.display = 'block';
+                    document.getElementById('whatsapp-link').style.display = 'block';
+                    form.reset();
                 })
                 .catch(error => alert('حدث خطأ، حاول مرة أخرى'));
         }
